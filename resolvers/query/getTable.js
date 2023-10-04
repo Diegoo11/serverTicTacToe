@@ -1,7 +1,16 @@
-import connectDB from '../../db/db.js';
+import { GraphQLError } from 'graphql';
+import Table from '../../db/models/Table.js';
 
 const getTable = async () => {
-  const [table] = await connectDB({ query: 'SELECT * FROM tables WHERE table_id = 1' });
+  const id = '';
+  let table;
+
+  try {
+    table = await Table.findById(id);
+  } catch (err) {
+    throw new GraphQLError(err.message);
+  }
+
   return table;
 };
 
