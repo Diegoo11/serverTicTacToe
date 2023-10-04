@@ -3,7 +3,7 @@ import Table from '../../db/models/Table.js';
 
 const played = async (root, args) => {
   const { play, ico } = args;
-  const id = '';
+  const id = '651dcafb0f57c99a604cc15c';
   let table;
   try {
     table = await Table.findById(id);
@@ -16,7 +16,7 @@ const played = async (root, args) => {
   } catch (err) {
     throw new GraphQLError(err.message);
   }
-
+  table.table_id = table._id;
   return table;
 };
 
