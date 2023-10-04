@@ -15,8 +15,6 @@
     "eslint": "^8.50.0",
     "eslint-config-airbnb": "^19.0.4",
     "graphql": "^16.8.1",
-    "mysql2": "^3.6.1",
-    "serverless-mysql": "^1.5.5",
-    "uuid": "^9.0.1"
+    "mongoose": "^7.5.3"
   }
 }
