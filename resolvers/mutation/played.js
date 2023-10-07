@@ -7,6 +7,7 @@ const played = async (root, args) => {
   let table;
   try {
     table = await Table.findById(id);
+    if (table[`p_${play}`] !== 0) throw new Error('Played not valid');
   } catch (err) {
     throw new GraphQLError(`Error database ${err}`);
   }
