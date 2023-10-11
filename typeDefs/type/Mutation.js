@@ -2,12 +2,27 @@ const Mutation = `
   type Mutation {
     played(
       play: Int!
-      ico: Int!
+      gameId: String!
     ): Table
 
     resetTable(
       game_id: Int!
     ): Table
+
+    register(
+      username: String!
+      password: String!
+    ): Token
+
+    login(
+      username: String!
+      password: String!
+    ): Token
+
+    createGame: Token
+    joinGame(
+      gameId: String!  
+    ): Token
   }
 `;
 

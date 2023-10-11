@@ -10,6 +10,7 @@ module.exports = {
     'linebreak-style': 0,
     'import/extensions': 0,
     'no-console': 0,
-    'no-underscore-dangle': 0
+    'no-underscore-dangle': 0,
+    'eqeqeq': 0,
   },
 }

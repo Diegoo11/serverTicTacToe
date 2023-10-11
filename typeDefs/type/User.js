@@ -1,6 +1,7 @@
 const User = `
   type User {
-    userName: String!
+    username: String!
+    imgSrc: String!
     id: ID!
   }
 `;

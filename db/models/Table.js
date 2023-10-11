@@ -4,38 +4,47 @@ const schema = Schema({
   p_0: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_1: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_2: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_3: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_4: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_5: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_6: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_7: {
     type: Number,
     required: true,
+    default: 0,
   },
   p_8: {
     type: Number,
     required: true,
+    default: 0,
   },
 });
 

@@ -1,6 +1,6 @@
 const Table = `
   type Table {
-    table_id: ID!
+    id: ID!
     p_0: Int!
     p_1: Int!
     p_2: Int!

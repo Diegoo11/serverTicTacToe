@@ -1,23 +1,33 @@
 import { GraphQLError } from 'graphql';
-import Table from '../../db/models/Table.js';
+import Game from '../../db/models/Game.js';
 
-const played = async (root, args) => {
-  const { play, ico } = args;
-  const id = '651dcafb0f57c99a604cc15c';
-  let table;
+const played = async (root, args, context) => {
+  const { play, gameId } = args;
+  const { currentUser } = context;
+  console.log(play, gameId, currentUser);
+
+  if (!currentUser) return null;
+  let game;
   try {
-    table = await Table.findById(id);
-    if (table[`p_${play}`] !== 0) throw new Error('Played not valid');
+    game = await Game.findById(gameId).populate('table');
   } catch (err) {
-    throw new GraphQLError(`Error database ${err}`);
+    throw new GraphQLError(err.message);
   }
+
+  if (!game) throw new GraphQLError('Corrupt game');
+
+  if (game.player1 != currentUser.id
+    && game.player2 != currentUser.id) throw new GraphQLError('Corrupt game');
+
+  const { table } = game;
+  const ico = game.player1 == currentUser.id ? 1 : 2;
+  if (table[`p_${play}`] !== 0) throw new GraphQLError('Invalid played');
   table[`p_${play}`] = ico;
   try {
     await table.save();
   } catch (err) {
     throw new GraphQLError(err.message);
   }
-  table.table_id = table._id;
   return table;
 };
 
