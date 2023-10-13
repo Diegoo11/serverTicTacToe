@@ -1,14 +1,16 @@
 import { GraphQLError } from 'graphql';
-import Table from '../../db/models/Table.js';
+import Game from '../../db/models/Game.js';
 
-const resetTable = async () => {
-  const id = '651dcafb0f57c99a604cc15c';
-  let table;
+const resetTable = async (root, args) => {
+  const { gameId } = args;
+  let game;
   try {
-    table = await Table.findById(id);
+    game = await Game.findById(gameId).populate('table');
   } catch (err) {
     throw new GraphQLError(err.message);
   }
+
+  const { table } = game;
 
   table.p_0 = 0;
   table.p_1 = 0;
@@ -25,7 +27,6 @@ const resetTable = async () => {
   } catch (err) {
     throw new GraphQLError(err.message);
   }
-  table.table_id = table._id;
   return table;
 };
 

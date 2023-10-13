@@ -6,7 +6,7 @@ const Mutation = `
     ): Table
 
     resetTable(
-      game_id: Int!
+      game_id: String!
     ): Table
 
     register(
