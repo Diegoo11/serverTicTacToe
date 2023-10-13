@@ -10,6 +10,8 @@ const Table = `
     p_6: Int!
     p_7: Int!
     p_8: Int!
+    winner: Int!
+    status: Int!
   }
 `;
 

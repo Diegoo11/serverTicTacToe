@@ -46,6 +46,16 @@ const schema = Schema({
     required: true,
     default: 0,
   },
+  status: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
+  winner: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 export default model('Table', schema);
