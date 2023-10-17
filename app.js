@@ -49,6 +49,8 @@ const server = new ApolloServer({
 
 await server.start();
 
+app.use(cors());
+
 app.use(
   '/subscriptions',
   cors(),
