@@ -1,7 +1,7 @@
-import getBooks from './query/getBooks.js';
 import getTable from './query/getTable.js';
 import getUser from './query/getUser.js';
 import getEnemy from './query/getEnemy.js';
+import getTurn from './query/getTurn.js';
 
 import played from './mutation/played.js';
 import resetTable from './mutation/resetTable.js';
@@ -14,10 +14,10 @@ import playerPlayed from './subscription/playerPlayed.js';
 
 const resolvers = {
   Query: {
-    getBooks,
     getTable,
     getUser,
     getEnemy,
+    getTurn,
   },
   Mutation: {
     played,
