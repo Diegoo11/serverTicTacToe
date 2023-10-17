@@ -10,6 +10,8 @@ import register from './mutation/register.js';
 import createGame from './mutation/createGame.js';
 import joinGame from './mutation/joinGame.js';
 
+import playerPlayed from './subscription/playerPlayed.js';
+
 const resolvers = {
   Query: {
     getBooks,
@@ -24,6 +26,9 @@ const resolvers = {
     register,
     createGame,
     joinGame,
+  },
+  Subscription: {
+    playerPlayed,
   },
 };
 

@@ -1,6 +1,8 @@
 import { GraphQLError } from 'graphql';
 import Game from '../../db/models/Game.js';
 
+import pubSub from '../utilities/pubSub.js';
+
 const resetTable = async (root, args) => {
   const { gameId } = args;
   let game;
@@ -21,12 +23,15 @@ const resetTable = async (root, args) => {
   table.p_6 = 0;
   table.p_7 = 0;
   table.p_8 = 0;
+  table.winner = 0;
+  table.status = 1;
 
   try {
     await table.save();
   } catch (err) {
     throw new GraphQLError(err.message);
   }
+  pubSub.publish('PLAYED', { playerPlayed: table });
   return table;
 };
 

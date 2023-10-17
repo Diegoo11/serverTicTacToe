@@ -1,11 +1,11 @@
 import { GraphQLError } from 'graphql';
 import Game from '../../db/models/Game.js';
 import isWinner from '../utilities/isWinner.js';
+import pubSub from '../utilities/pubSub.js';
 
 const played = async (root, args, context) => {
   const { play, gameId } = args;
   const { currentUser } = context;
-  console.log(play, gameId, currentUser);
 
   if (!currentUser) return null;
   let game;
@@ -40,6 +40,7 @@ const played = async (root, args, context) => {
     throw new GraphQLError(err.message);
   }
 
+  pubSub.publish('PLAYED', { playerPlayed: table });
   return table;
 };
 
