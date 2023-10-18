@@ -26,7 +26,8 @@
     "graphql-ws": "^5.14.1",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.5.3",
+    "serverless-mysql": "^1.5.5",
+    "uuid": "^9.0.1",
     "ws": "^8.14.2"
   }
 }
