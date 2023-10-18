@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import Game from '../../db/models/Game.js';
+import db from '../../db/db.js';
 
 import pubSub from '../utilities/pubSub.js';
 
@@ -7,30 +7,48 @@ const resetTable = async (root, args) => {
   const { gameId } = args;
   let game;
   try {
-    game = await Game.findById(gameId).populate('table');
+    // game = await Game.findById(gameId).populate('table');
+    [game] = await db({
+      query: 'SELECT tableRef FROM games WHERE id = ?;',
+      args: [gameId],
+    });
   } catch (err) {
     throw new GraphQLError(err.message);
   }
 
-  const { table } = game;
+  // const { table } = game;
 
-  table.p_0 = 0;
-  table.p_1 = 0;
-  table.p_2 = 0;
-  table.p_3 = 0;
-  table.p_4 = 0;
-  table.p_5 = 0;
-  table.p_6 = 0;
-  table.p_7 = 0;
-  table.p_8 = 0;
-  table.winner = 0;
-  table.status = 1;
+  // table.p_0 = 0;
+  // table.winner = 0;
+  // table.status = 1;
 
+  let table;
   try {
-    await table.save();
+    await db({
+      query: `UPDATE tables SET 
+      p_0 = 0, 
+      p_1 = 0, 
+      p_2 = 0, 
+      p_3 = 0, 
+      p_4 = 0, 
+      p_5 = 0, 
+      p_6 = 0, 
+      p_7 = 0, 
+      p_8 = 0, 
+      winner = 0, 
+      status = 1
+      WHERE id = ?;
+      `,
+      args: [game.tableRef],
+    });
+    [table] = await db({
+      query: 'SELECT * FROM tables WHERE id = ?',
+      args: [game.tableRef],
+    });
   } catch (err) {
     throw new GraphQLError(err.message);
   }
+  console.log({ table });
   pubSub.publish('PLAYED', { playerPlayed: table });
   return table;
 };

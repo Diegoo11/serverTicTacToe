@@ -1,6 +1,5 @@
 import { GraphQLError } from 'graphql';
-import Game from '../../db/models/Game.js';
-import User from '../../db/models/User.js';
+import db from '../../db/db.js';
 
 const getEnemy = async (root, args, context) => {
   const { currentUser } = context;
@@ -8,14 +7,21 @@ const getEnemy = async (root, args, context) => {
   let game;
 
   try {
-    game = await Game.findById(gameId);
+    // game = await Game.findById(gameId);
+    [game] = await db({
+      query: 'SELECT * FROM games WHERE id = ?',
+      args: [gameId],
+    });
   } catch (err) {
     throw new GraphQLError(err.message);
   }
 
   const enemyId = game.player1 == currentUser.id ? game.player2 : game.player1;
   try {
-    const enemy = await User.findById(enemyId);
+    const [enemy] = await db({
+      query: 'SELECT * FROM users WHERE id = ?',
+      args: [enemyId],
+    });
     return enemy;
   } catch (err) {
     throw new GraphQLError(err.message);

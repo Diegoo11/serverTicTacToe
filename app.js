@@ -16,9 +16,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { PubSub } from 'graphql-subscriptions';
 import typeDefs from './typeDefs/typeDefs.js';
 import resolvers from './resolvers/resolvers.js';
-
-import './db/db.js';
-import User from './db/models/User.js';
+import db from './db/db.js';
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -73,7 +71,10 @@ app.use(
         }
 
         const { id } = decodedToken;
-        const currentUser = await User.findById(id);
+        const [currentUser] = await db({
+          query: 'SELECT * FROM users WHERE id = ?',
+          args: [id],
+        });
         return { currentUser, pubSub, a: 'dawda' };
       }
     },

@@ -1,5 +1,5 @@
 import { GraphQLError } from 'graphql';
-import Game from '../../db/models/Game.js';
+import db from '../../db/db.js';
 
 const getTable = async (root, args, context) => {
   const { gameId } = args;
@@ -8,7 +8,11 @@ const getTable = async (root, args, context) => {
   if (!currentUser) return null;
   let game;
   try {
-    game = await Game.findById(gameId).populate('table');
+    // game = await Game.findById(gameId).populate('table');
+    [game] = await db({
+      query: 'SELECT * FROM games JOIN tables ON games.tableRef = tables.id WHERE games.id = ?;',
+      args: [gameId],
+    });
   } catch (err) {
     throw new GraphQLError(err.message);
   }
@@ -18,7 +22,7 @@ const getTable = async (root, args, context) => {
   if (game.player1 != currentUser.id
     && game.player2 != currentUser.id) throw new GraphQLError('Corrupt game');
 
-  return game.table;
+  return game;
 };
 
 export default getTable;

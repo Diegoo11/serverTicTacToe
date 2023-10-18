@@ -1,14 +1,16 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
-import User from '../../db/models/User.js';
+import db from '../../db/db.js';
+
 import 'dotenv/config';
 
 const login = async (root, args) => {
   const { username, password } = args;
   let user;
   try {
-    user = await User.findOne({ username });
+    // user = await User.findOne({ username });
+    [user] = await db({ query: 'SELECT * FROM users WHERE username = ?;', args: [username] });
   } catch (err) {
     throw new GraphQLError(err.message);
   }

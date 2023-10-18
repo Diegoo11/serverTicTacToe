@@ -19,7 +19,7 @@ const isWinner = (t) => {
     || (t.p_0 == 2 && t.p_4 == 2 && t.p_8 == 2)
     || (t.p_2 == 2 && t.p_4 == 2 && t.p_6 == 2)
   ) return 2;
-  return false;
+  return 0;
 };
 
 export default isWinner;
