@@ -3,30 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.js"
   },
   "author": "",
-  "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@apollo/server": "^4.9.3",
-    "@graphql-tools/schema": "^10.0.0",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.2",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "eslint": "^8.50.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "express": "^4.18.2",
-    "graphql": "^16.8.1",
-    "graphql-subscriptions": "^2.0.0",
-    "graphql-ws": "^5.14.1",
-    "http": "^0.0.1-security",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.5.3",
-    "ws": "^8.14.2"
-  }
+  "license": "ISC"
 }
