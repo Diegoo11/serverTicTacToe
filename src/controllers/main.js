@@ -257,9 +257,10 @@ export const tableEnemyGet = async (req, res) => {
   if (!game) return res.sendStatus(401).json({ error: 'Invalid game' });
 
   const enemyId = game.player1 == currentUser.id ? game.player2 : game.player1;
+  const currentIco = game.player1 == currentUser.id ? 1 : 2;
   try {
     const enemy = await User.findById(enemyId);
-    return res.json({ enemy });
+    return res.json({ enemy, currentIco });
   } catch (err) {
     return res.sendStatus(401).json({ error: err.message });
   }

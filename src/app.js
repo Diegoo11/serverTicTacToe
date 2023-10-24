@@ -24,7 +24,7 @@ const io = new Server(server, {
 });
 
 app.use(cors());
-app.use(morgan('tiny'));
+// app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(authMid);
 
