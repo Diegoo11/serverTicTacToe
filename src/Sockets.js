@@ -58,5 +58,44 @@ export default function Sockets(io) {
 
       io.to(gameId).emit('played', { table });
     });
+
+    socket.on('reset', async (context) => {
+      const { gameId, userId } = context;
+
+      if (!userId) return;
+
+      let game;
+      try {
+        game = await Game.findById(gameId).populate('table');
+      } catch (err) {
+        return;
+      }
+
+      if (
+        game.player1 != userId
+        && game.player2 != userId
+      ) return;
+
+      const { table } = game;
+
+      table.p_0 = 0;
+      table.p_1 = 0;
+      table.p_2 = 0;
+      table.p_3 = 0;
+      table.p_4 = 0;
+      table.p_5 = 0;
+      table.p_6 = 0;
+      table.p_7 = 0;
+      table.p_8 = 0;
+      table.status = 1;
+      table.winner = 0;
+
+      try {
+        await table.save();
+        return io.to(gameId).emit('played', { table });
+      } catch (err) {
+        console.log(err.message);
+      }
+    });
   });
 }
